@@ -26,3 +26,9 @@ def test_media_from_another_event_is_rejected(sample_event):
     with pytest.raises(selection_core.SelectionError) as err:     
         selection_core.submit_selection(     
             sample_event, "cli_100", [____], ["add_to_album"])     
+
+@pytest.mark.req("REQ-SEL-02")
+def test_submit_selection_rejects_media_id_not_in_gallery(sample_event):
+    with pytest.raises(selection_core.SelectionError, match=r"MEDIA_NOT_IN_GALLERY"):
+        selection_core.submit_selection(sample_event, "cli_100", ["med_9"], ["add_to_album"])
+
