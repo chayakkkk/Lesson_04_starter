@@ -32,3 +32,7 @@ def test_submit_selection_rejects_media_id_not_in_gallery(sample_event):
     with pytest.raises(selection_core.SelectionError, match=r"MEDIA_NOT_IN_GALLERY"):
         selection_core.submit_selection(sample_event, "cli_100", ["med_9"], ["add_to_album"])
 
+@pytest.mark.req("REQ-SEL-05")
+def test_submit_selection_rejects_duplicate_media_ids(sample_event):
+    with pytest.raises(selection_core.SelectionError, match="DUPLICATE_MEDIA_ID"):
+        selection_core.submit_selection(sample_event, "cli_100", ["med_1", "med_1"], ["add_to_album"])
